@@ -1,50 +1,32 @@
 //your code here
-const images = document.querySelectorAll('.image');
+document.addEventListener("DOMContentLoaded", () => {
+    const images = document.querySelectorAll(".image");
 
-let draggedItem = null;
+    let draggedElement = null;
 
-images.forEach(image => {
-    image.addEventListener('dragstart', () => {
-        draggedItem = image;
-        setTimeout(() => {
-            image.style.display = 'none';
-        }, 0);
-    });
+    images.forEach(image => {
+        image.addEventListener("dragstart", (e) => {
+            draggedElement = e.target; // Store the dragged element
+            e.target.classList.add("selected"); // Highlight selected element
+        });
 
-    image.addEventListener('dragend', () => {
-        setTimeout(() => {
-            draggedItem = null;
-            image.style.display = 'block';
-        }, 0);
-    });
+        image.addEventListener("dragover", (e) => {
+            e.preventDefault(); // Allow drop
+        });
 
-    image.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    });
+        image.addEventListener("drop", (e) => {
+            e.preventDefault();
+            if (draggedElement !== e.target) {
+                // Swap backgrounds
+                let tempBackground = draggedElement.style.backgroundImage;
+                draggedElement.style.backgroundImage = e.target.style.backgroundImage;
+                e.target.style.backgroundImage = tempBackground;
+            }
+            draggedElement.classList.remove("selected"); // Remove highlight
+        });
 
-    image.addEventListener('dragenter', (e) => {
-        e.preventDefault();
-        image.classList.add('selected');
-    });
-
-    image.addEventListener('dragleave', () => {
-        image.classList.remove('selected');
-    });
-
-    image.addEventListener('drop', () => {
-        image.classList.remove('selected');
-        if (draggedItem) {
-            const draggedItemId = draggedItem.id;
-            const targetItemId = image.id;
-
-            // Swap the images
-            const draggedItemContent = draggedItem.innerHTML;
-            draggedItem.innerHTML = image.innerHTML;
-            image.innerHTML = draggedItemContent;
-
-            // Swap the IDs
-            draggedItem.id = targetItemId;
-            image.id = draggedItemId;
-        }
+        image.addEventListener("dragend", () => {
+            draggedElement.classList.remove("selected"); // Ensure highlight is removed
+        });
     });
 });
