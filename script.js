@@ -1,39 +1,52 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const images = document.querySelectorAll(".image");
-    let draggedElement = null;
+//your code here
+// Select all the draggable elements and the parent container
+const items = document.querySelectorAll('.image');
+const container = document.getElementById('parent');
 
-    images.forEach((image) => {
-        image.setAttribute("draggable", "true"); // Ensure elements are draggable
+// Variables to hold the dragged item and the drop target
+let draggedItem = null;
 
-        image.addEventListener("dragstart", (e) => {
-            draggedElement = e.target;
-            e.dataTransfer.setData("text/plain", e.target.id); // Store dragged element ID
-            e.target.classList.add("selected"); // Highlight selected element
-        });
+items.forEach((item) => {
+  // Event listener for starting the drag
+  item.addEventListener('dragstart', (e) => {
+    draggedItem = e.target;
+    setTimeout(() => {
+      e.target.style.display = 'none';
+    }, 0);
+  });
 
-        image.addEventListener("dragover", (e) => {
-            e.preventDefault(); // Allow drop
-        });
+  // Event listener for ending the drag
+  item.addEventListener('dragend', (e) => {
+    setTimeout(() => {
+      e.target.style.display = 'block';
+      draggedItem = null;
+    }, 0);
+  });
 
-        image.addEventListener("drop", (e) => {
-            e.preventDefault();
+  // Prevent the default behavior to allow dropping
+  item.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
 
-            const targetElement = e.target.closest(".image"); // Ensure dropping on valid element
-            if (!draggedElement || !targetElement || draggedElement === targetElement) return;
+  // Handle the dragenter event for styling
+  item.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    e.target.classList.add('selected');
+  });
 
-            // Swap images
-            const tempBackground = draggedElement.style.backgroundImage;
-            draggedElement.style.backgroundImage = targetElement.style.backgroundImage;
-            targetElement.style.backgroundImage = tempBackground;
+  // Remove styling on dragleave
+  item.addEventListener('dragleave', (e) => {
+    e.target.classList.remove('selected');
+  });
 
-            draggedElement.classList.remove("selected"); // Remove highlight
-        });
-
-        image.addEventListener("dragend", () => {
-            if (draggedElement) {
-                draggedElement.classList.remove("selected"); // Ensure highlight is removed
-                draggedElement = null; // Reset after dragging
-            }
-        });
-    });
+  // Handle the drop event and swap content
+  item.addEventListener('drop', (e) => {
+    e.target.classList.remove('selected');
+    if (e.target !== draggedItem) {
+      // Swap the inner content of the dragged and drop targets
+      const draggedContent = draggedItem.innerHTML;
+      draggedItem.innerHTML = e.target.innerHTML;
+      e.target.innerHTML = draggedContent;
+    }
+  });
 });
