@@ -1,63 +1,43 @@
 #div1 {
-  background-image: url("https://picsum.photos/id/237/200/300");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+    background-image: url("https://picsum.photos/id/237/200/300");
 }
 
 #div2 {
-  background-image: url("https://picsum.photos/seed/picsum/200/300");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+    background-image: url("https://picsum.photos/seed/picsum/200/300");
 }
 
 #div3 {
-  background-image: url("https://picsum.photos/200/300?grayscale");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+    background-image: url("https://picsum.photos/200/300?grayscale");
 }
 
 #div4 {
-  background-image: url("https://picsum.photos/200/300/");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+    background-image: url("https://picsum.photos/200/300/");
 }
 
 #div5 {
-  background-image: url("https://picsum.photos/200/300.jpg");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+    background-image: url("https://picsum.photos/200/300.jpg");
 }
 
 #div6 {
-  background-image: url("https://picsum.photos/id/102/200/300");
-  height: 300px;
-  width: 200px;
-  margin: 20px;
+    background-image: url("https://picsum.photos/id/102/200/300");
 }
 
-div.container {
-  border: 5px solid #555;
+.image {
+    height: 300px;
+    width: 200px;
+    margin: 20px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
 }
 
 .flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.selected {
-  border: 5px solid rgb(0, 195, 255);
-}
-
-p {
-  text-align: center;
-}
-
-button {
-  margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
